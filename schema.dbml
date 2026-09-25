@@ -1,0 +1,146 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+Table user {
+  id integer [primary key]
+  public_id uuid [not null]
+  name varchar
+  surname varchar
+  username varchar
+  location varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table auth {
+  id integer [primary key]
+  user_id integer [not null]
+  email varchar
+  password_hash varchar
+  is_active bool
+  is_verified bool
+  created_at timestamp
+  updated_at timestamp
+  last_login timestamp
+}
+
+Table company {
+  id integer [primary key]
+  public_id uuid
+  location varchar
+  file_report varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table customer {
+  id integer [primary key]
+  public_id uuid
+  company_id integer [not null]
+  name varchar
+  email varchar
+  phone varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table property {
+  id integer [primary key]
+  public_id uuid
+  location varchar
+  size enum
+  customer_id integer [not null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table team {
+  id integer [primary key]
+  public_id uuid
+  company_id integer [not null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table employee {
+  id integer [primary key]
+  public_id uuid
+  user_id integer [not null]
+  company_id integer [not null]
+  team_id integer
+  role varchar
+  photo_report varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table employee_registry {
+  id integer [primary key]
+  public_id uuid
+  employee_id integer [not null]
+  hour_start timestamp
+  hour_end timestamp
+  total_hours integer
+  extra_hours integer
+}
+
+Table service {
+  id integer [primary key]
+  public_id uuid
+  name varchar
+  description varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table schedule {
+  id integer [primary key]
+  public_id uuid
+  date date
+  start_time time
+  end_time time
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table work_order {
+  id integer [primary key]
+  public_id uuid
+  property_id integer [not null]
+  team_id integer
+  schedule_id integer
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table work {
+  id integer [primary key]
+  public_id uuid
+  work_order_id integer [not null]
+  service_id integer [not null]
+  title varchar
+  description varchar
+  payment float
+  hours time
+  created_at timestamp
+  updated_at timestamp
+}
+
+
+Ref: auth.user_id > user.id
+
+Ref: employee.user_id > user.id
+Ref: employee.company_id > company.id
+Ref: employee.team_id > team.id
+Ref: employee_registry.employee_id > employee.id
+
+Ref: team.company_id > company.id
+
+Ref: customer.company_id > company.id
+Ref: property.customer_id > customer.id
+
+Ref: work_order.property_id > property.id
+Ref: work_order.team_id > team.id
+Ref: work_order.schedule_id > schedule.id
+
+Ref: work.work_order_id > work_order.id
+Ref: work.service_id > service.id

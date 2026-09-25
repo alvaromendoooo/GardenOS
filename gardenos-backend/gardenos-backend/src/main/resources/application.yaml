@@ -1,3 +1,14 @@
 spring:
   application:
     name: gardenos-backend
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gardenos_db
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
