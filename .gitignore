@@ -1,2 +1,4 @@
 .env
 CLAUDE.md
+__pycache__/
+target/

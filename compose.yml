@@ -1,7 +1,7 @@
 services:
   postgres:
     container_name: gardenos_db
-    image: postgres/postgres:latest
+    image: postgres
     restart: unless-stopped
     ports:
       - "5432:5432"
