@@ -34,6 +34,8 @@ def engine() -> Iterator[Engine]:
     with PostgresContainer(POSTGRES_IMAGE, driver="psycopg") as pg:
         url = pg.get_connection_url()
         os.environ["DATABASE_URL"] = url
+        # Required by Settings; a throwaway value so tests never need the real one.
+        os.environ.setdefault("SECRET_KEY", "test-only-secret-key")
 
         # Guard: if `config` was imported earlier, the singleton is stale and
         # Alembic would migrate the wrong database. Fail loudly instead.

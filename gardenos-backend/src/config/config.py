@@ -16,10 +16,16 @@ class Settings(BaseSettings):
 
     # Auth
     REFRESH_TOKEN: int
+    # Signs access tokens. No default on purpose: a known key lets anyone forge tokens.
+    SECRET_KEY: str
+    ACCESS_TOKEN_MINUTES: int = 15
+    REFRESH_TOKEN_DAYS: int = 30
 
     # Secrets and External Services
     DATABASE_URL: PostgresDsn
 
+    # Production
+    TRUSTED_PROXIES: int = 0
 
     # Configuration to load from .env automatically
     model_config = SettingsConfigDict(

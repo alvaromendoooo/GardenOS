@@ -13,6 +13,7 @@ dependencies = [
     "flask-bcrypt>=1.0.1",
     "flask-cors>=6.0.5",
     "flask-httpauth>=4.8.1",
+    "flask-limiter>=4.1.1",
     "psycopg2-binary>=2.9.13",
     "psycopg[binary]>=3.3.6",
     "pydantic>=2.13.5",
